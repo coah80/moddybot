@@ -1,6 +1,6 @@
 import {
     type ChatInputCommandInteraction,
-    type Client,
+    type Client, type GuildTextBasedChannel,
     SlashCommandBuilder,
 } from "discord.js";
 import {check} from "@/commands/defaults";
@@ -22,7 +22,7 @@ export default {
         const say = interaction.options.getString("say");
         if (!say || !guild) return;
 
-        await interaction.reply({
+        await (client.channels.cache.get(interaction.channelId) as GuildTextBasedChannel).send({
             content: say
         })
     }
