@@ -9,11 +9,11 @@ const rest = new REST().setToken(process.env.TOKEN);
 
 export default {
     data: new SlashCommandBuilder()
-        .setName('say')
-        .setDescription('say')
+        .setName('repeat')
+        .setDescription('message to repeat')
         .addStringOption(option => option
-            .setName('say')
-            .setDescription('say')
+            .setName('message')
+            .setDescription('arg')
             .setRequired(true)
         ),
 
