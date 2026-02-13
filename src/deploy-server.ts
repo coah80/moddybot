@@ -83,16 +83,22 @@ async function executeDeploy(commitMessage?: string, pusher?: string, commitURL?
 
         await sendDiscordMessage("", embed);
 
-        LogAPI.log("pulling latest changes");
-        const gitPull = Bun.spawn(["git", "pull", "origin", "main"], {
+        LogAPI.log("resetting to match remote");
+        const gitFetch = Bun.spawn(["git", "fetch", "origin", "main"], {
             cwd: repoDir,
             stdout: "pipe",
             stderr: "pipe",
         });
+        await gitFetch.exited;
 
-        await gitPull.exited;
-        const pullOutput = await new Response(gitPull.stdout).text();
-        LogAPI.log(pullOutput);
+        const gitReset = Bun.spawn(["git", "reset", "--hard", "origin/main"], {
+            cwd: repoDir,
+            stdout: "pipe",
+            stderr: "pipe",
+        });
+        await gitReset.exited;
+        const resetOutput = await new Response(gitReset.stdout).text();
+        LogAPI.log(resetOutput);
 
         LogAPI.log("installing dependencies");
         const bunInstall = Bun.spawn(["bun", "install"], {
