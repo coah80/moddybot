@@ -1,9 +1,11 @@
 import {
     type ChatInputCommandInteraction,
-    type Client, type GuildTextBasedChannel,
+    type Client, type GuildTextBasedChannel, REST, Routes,
     SlashCommandBuilder,
 } from "discord.js";
 import {check} from "@/commands/defaults";
+
+const rest = new REST().setToken(process.env.TOKEN);
 
 export default {
     data: new SlashCommandBuilder()
@@ -22,8 +24,12 @@ export default {
         const say = interaction.options.getString("say");
         if (!say || !guild) return;
 
-        await (client.channels.cache.get(interaction.channelId) as GuildTextBasedChannel).send({
-            content: say
-        })
+        await rest.post(Routes.channelMessages(interaction.channelId), {
+            body: {
+                content: say,
+                flags: 0,
+                tts: false
+            }
+        });
     }
 }
