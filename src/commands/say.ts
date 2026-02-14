@@ -5,8 +5,6 @@ import {
 } from "discord.js";
 import {check} from "@/commands/defaults";
 
-const rest = new REST().setToken(process.env.TOKEN);
-
 export default {
     data: new SlashCommandBuilder()
         .setName('repeat')
@@ -24,7 +22,8 @@ export default {
         const say = interaction.options.getString("say");
         if (!say || !guild) return;
 
-        await rest.post(Routes.channelMessages(interaction.channelId), {
+        const rest = new REST().setToken(process.env.TOKEN);
+        await rest.post(Routes.channelMessages(interaction.channel.id), {
             body: {
                 content: say,
                 flags: 0,

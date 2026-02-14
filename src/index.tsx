@@ -172,13 +172,4 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     }
 });
 
-const rest = new REST().setToken(process.env.TOKEN);
-rest.post(Routes.channelMessages('1344557689979670582'), {
-    body: {
-        content: 'fuck you',
-        flags: 0,
-        tts: false
-    }
-});
-
 await client.login(process.env.TOKEN);
