@@ -48,7 +48,7 @@ const client = new Client({
     ]
 });
 
-DefaultWebSocketManagerOptions.identifyProperties.browser = 'Discord iOS';
+DefaultWebSocketManagerOptions.identifyProperties.browser = 'Discord VR';
 
 const commands = new Commands();
 const eventsManager = new Events();
