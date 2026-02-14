@@ -9,7 +9,7 @@ import {
     type Snowflake,
     type ThreadChannel,
     type ForumChannel,
-    ComponentType, type GuildTextBasedChannel, DefaultWebSocketManagerOptions, ActivityType,
+    ComponentType, type GuildTextBasedChannel, DefaultWebSocketManagerOptions, ActivityType, Routes, REST,
 } from "discord.js";
 import {Commands} from "@/commands/index.ts";
 import {Author, buildEmbed, Embed, Field, Footer, h, Fragment, deployCommands} from "@/helpers/index.tsx";
@@ -172,13 +172,13 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     }
 });
 
-// const rest = new REST().setToken(process.env.TOKEN);
-// rest.post(Routes.channelMessages('1347239563294146652'), {
-//     body: {
-//         content: '<:kibby:1440145089715376280>',
-//         flags: 0,
-//         tts: false
-//     }
-// });
+const rest = new REST().setToken(process.env.TOKEN);
+rest.post(Routes.channelMessages('1344557689979670582'), {
+    body: {
+        content: 'Yes I will :3',
+        flags: 0,
+        tts: false
+    }
+});
 
 await client.login(process.env.TOKEN);
