@@ -142,7 +142,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     } catch (error) {
         LogAPI.err(error)
         reportChannel != undefined && (reportChannel as GuildTextBasedChannel).send({
-            content: `\`\`\`Error: \n\n${error}\`\`\``,
+            content: `\`\`\`js ${error}\`\`\``,
         })
     }
 });
