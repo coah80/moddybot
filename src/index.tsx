@@ -73,20 +73,20 @@ client.on('clientReady', async () => {
         }
     });
 
-    const reportChannel = client.channels.cache.get('1468680174844248282') as GuildTextBasedChannel
-    if (reportChannel) {
-        reportChannel.send({
-            embeds: [
-                buildEmbed(
-                    <Embed title={"Startup"}>
-                        <Field name={"Commands"} value={commands.getAllCommands().map(x => {
-                            return `\`${x.data.name}\``
-                        }).join(', ')}/>
-                    </Embed>
-                )
-            ]
-        })
-    }
+    // const reportChannel = client.channels.cache.get('1468680174844248282') as GuildTextBasedChannel
+    // if (reportChannel) {
+    //     reportChannel.send({
+    //         embeds: [
+    //             buildEmbed(
+    //                 <Embed title={"Startup"}>
+    //                     <Field name={"Commands"} value={commands.getAllCommands().map(x => {
+    //                         return `\`${x.data.name}\``
+    //                     }).join(', ')}/>
+    //                 </Embed>
+    //             )
+    //         ]
+    //     })
+    // }
 });
 
 client.on("threadCreate", async (thread: ThreadChannel, newlyCreated: boolean) => {
