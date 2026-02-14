@@ -80,7 +80,7 @@ export default {
 
             await interaction.guild!.members.ban(user, {
                 deleteMessageSeconds: deleteMessageDays * 86400,
-                reason: `[SOFTBAN] ${reason} - Executed by ${interaction.user.tag}`
+                reason: `[SOFTBAN] ${reason} - Executed by ${interaction.user.username}`
             });
 
             await interaction.guild!.bans.remove(user, `[SOFTBAN] Auto-unban by bot`);
