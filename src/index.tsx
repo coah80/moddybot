@@ -9,7 +9,7 @@ import {
     type Snowflake,
     type ThreadChannel,
     type ForumChannel,
-    ComponentType,
+    ComponentType, type GuildTextBasedChannel,
 } from "discord.js";
 import {Commands} from "@/commands/index.ts";
 import {Author, buildEmbed, Embed, Field, Footer, h, Fragment, deployCommands} from "@/helpers/index.tsx";
@@ -104,38 +104,46 @@ client.on("threadCreate", async (thread: ThreadChannel, newlyCreated: boolean) =
 });
 
 client.on("interactionCreate", async (interaction: Interaction) => {
-    if (interaction.isAutocomplete()) {
-        const command = commands.getCommand(interaction.commandName);
-        if (command?.autocomplete) {
-            await command.autocomplete(client, interaction);
-        }
-        return;
-    }
-
-    if (interaction.isMessageComponent()) {
-        const handler = componentCollector.getHandler(interaction.customId);
-        if (handler) {
-            await handler.execute(client, interaction, interaction.message);
-        }
-        return;
-    }
-
-    if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
-        const command = commands.getCommand(interaction.commandName);
-        if (!command) return;
-
-        if (command.permissionCheck) {
-            const hasPermission = await command.permissionCheck(client, interaction);
-            if (!hasPermission.result) {
-                return await interaction.reply({
-                    content: hasPermission.message,
-                    embeds: hasPermission.embeds,
-                    ephemeral: hasPermission.hide || false
-                });
+    const reportChannel = client.channels.cache.get('1468680174844248282')
+    try {
+        if (interaction.isAutocomplete()) {
+            const command = commands.getCommand(interaction.commandName);
+            if (command?.autocomplete) {
+                await command.autocomplete(client, interaction);
             }
+            return;
         }
 
-        await command.execute(client, interaction);
+        if (interaction.isMessageComponent()) {
+            const handler = componentCollector.getHandler(interaction.customId);
+            if (handler) {
+                await handler.execute(client, interaction, interaction.message);
+            }
+            return;
+        }
+
+        if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
+            const command = commands.getCommand(interaction.commandName);
+            if (!command) return;
+
+            if (command.permissionCheck) {
+                const hasPermission = await command.permissionCheck(client, interaction);
+                if (!hasPermission.result) {
+                    return await interaction.reply({
+                        content: hasPermission.message,
+                        embeds: hasPermission.embeds,
+                        ephemeral: hasPermission.hide || false
+                    });
+                }
+            }
+
+            await command.execute(client, interaction);
+        }
+    } catch (error) {
+        LogAPI.err(error)
+        reportChannel != undefined && (reportChannel as GuildTextBasedChannel).send({
+            content: `\`\`\`Error: \n\n${error}\`\`\``,
+        })
     }
 });
 
