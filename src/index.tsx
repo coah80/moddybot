@@ -78,7 +78,7 @@ client.on('clientReady', async () => {
                 buildEmbed(
                     <Embed title={"Startup"}>
                         <Field name={"Commands"} value={commands.getAllCommands().map(x => {
-                            return `\`${x.name}\``
+                            return `\`${x.data.name}\``
                         }).join(', ')}/>
                     </Embed>
                 )
