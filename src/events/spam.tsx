@@ -85,14 +85,24 @@ export default {
             </Embed>
         );
 
-        const blobs = await Promise.all(foundUrls.map(async url => {
-            const response = await fetch(url)
-            const blob = await response.blob();
-            return {
-                url: url,
-                type: blob.type,
-            }
-        }))
+        const blobs = await Promise.all([
+            ...foundUrls.map(async url => {
+                const response = await fetch(url)
+                const blob = await response.blob();
+                return {
+                    url: url,
+                    type: blob.type,
+                }
+            }),
+            ...message.attachments.map(async attachment => {
+                const response = await fetch(attachment.url)
+                const blob = await response.blob();
+                return {
+                    url: attachment.url,
+                    type: blob.type,
+                }
+            })
+        ])
 
         const worker = await createWorker('eng');
 
@@ -103,7 +113,7 @@ export default {
             const lowerText = text.data.text.toLowerCase();
 
             return {
-                found: ['crypto', 'elonmusk', 'bitcoin', 'raydium', 'ethereum','nft',"MrBeast"].some(keyword =>
+                found: ['crypto', 'elonmusk', 'bitcoin', 'raydium', 'ethereum','nft',"MrBeast", "mrbeast", "KaiCenat", "kaicenat", "withdrawal", "bonus"].some(keyword =>
                     lowerText.includes(keyword)
                 ),
                 url: x.url
