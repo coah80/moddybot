@@ -72,8 +72,7 @@ export default {
         const badLinks: string[] = getConfig().links;
         if (!message.guild || !badLinks || message.author.id == process.env.CLIENT_ID) return;
 
-        const foundUrls = message.content.match(urlRegex);
-        if (!foundUrls) return;
+        const foundUrls = message.content.match(urlRegex) || [];
 
         const hasBadLink = foundUrls.some(url =>
             badLinks.some(badLink => url.includes(badLink))
