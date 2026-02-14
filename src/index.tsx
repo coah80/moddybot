@@ -78,7 +78,7 @@ client.on('clientReady', async () => {
             name: 'REPO Modding VR',
             state: 'Playing REPO Modding VR',
         }],
-        status: 'dnd'
+        status: 'online'
     });
 
     // const reportChannel = client.channels.cache.get('1468680174844248282') as GuildTextBasedChannel
