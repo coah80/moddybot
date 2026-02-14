@@ -9,7 +9,7 @@ import {
     type Snowflake,
     type ThreadChannel,
     type ForumChannel,
-    ComponentType, type GuildTextBasedChannel, DefaultWebSocketManagerOptions,
+    ComponentType, type GuildTextBasedChannel, DefaultWebSocketManagerOptions, ActivityType,
 } from "discord.js";
 import {Commands} from "@/commands/index.ts";
 import {Author, buildEmbed, Embed, Field, Footer, h, Fragment, deployCommands} from "@/helpers/index.tsx";
@@ -48,7 +48,7 @@ const client = new Client({
     ]
 });
 
-DefaultWebSocketManagerOptions.identifyProperties.browser = 'Discord VR';
+DefaultWebSocketManagerOptions.identifyProperties.browser = 'Discord VR'; // DO NOT CHANGE OR EDIT THIS.
 
 const commands = new Commands();
 const eventsManager = new Events();
@@ -71,6 +71,14 @@ client.on('clientReady', async () => {
                 componentCollector.register(comp);
             });
         }
+    });
+
+    client.user.setPresence({
+        activities: [{
+            name: 'REPO Modding VR',
+            state: 'Playing REPO Modding VR',
+        }],
+        status: 'dnd'
     });
 
     // const reportChannel = client.channels.cache.get('1468680174844248282') as GuildTextBasedChannel
