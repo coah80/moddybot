@@ -8,6 +8,7 @@ import type {Event} from "@/types/index.ts";
 import {LogAPI} from "@/utils/logger.ts";
 import {createWorker} from "tesseract.js";
 import {Buffer} from "node:buffer";
+import guide from "@/commands/guide.ts";
 
 const urlRegex = /https?:\/\/\S+/gi;
 
@@ -180,12 +181,13 @@ export default {
                             />
                             <Field
                                 name={"Evidence"}
-                                value={"The flagged content is attached above for your reference."}
+                                value={"The flagged content is attached above for your reference. You are kicked in the meantime. Please recover your account."}
                             />
                         </Embed>
                     )],
                     files: orgFiles
                 })
+                //await message.guild.members.cache.get(message.author.id)?.timeout(6.048e+8)
             }
         } catch (e) {
             console.log(e);

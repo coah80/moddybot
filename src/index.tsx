@@ -58,9 +58,9 @@ eventsManager.getEvents().forEach(event => {
 
 client.on('clientReady', async () => {
     LogAPI.log('Ready!');
-   // const server = client.guilds.cache.get('1344557689979670578')
-    //server!.commands.set([])
-    //client.application.commands.set([]);
+    // const server = client.guilds.cache.get('1344557689979670578')
+    // server!.commands.set([])
+    // client.application.commands.set([]);
     await deployCommands(commands);
 
     commands.getAllCommands().forEach(command => {
@@ -70,6 +70,21 @@ client.on('clientReady', async () => {
             });
         }
     });
+
+    const reportChannel = client.channels.cache.get('1468680174844248282') as GuildTextBasedChannel
+    if (reportChannel) {
+        reportChannel.send({
+            embeds: [
+                buildEmbed(
+                    <Embed title={"Startup"}>
+                        <Field name={"Commands"} value={commands.getAllCommands().map(x => {
+                            return `\`${x.name}\``
+                        }).join(', ')}/>
+                    </Embed>
+                )
+            ]
+        })
+    }
 });
 
 client.on("threadCreate", async (thread: ThreadChannel, newlyCreated: boolean) => {
@@ -142,7 +157,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     } catch (error) {
         LogAPI.err(error)
         reportChannel != undefined && (reportChannel as GuildTextBasedChannel).send({
-            content: `\`\`\`js ${error}\`\`\``,
+            content: `\`\`\`js \n${error}\`\`\``,
         })
     }
 });
