@@ -9,7 +9,7 @@ import {
     type Snowflake,
     type ThreadChannel,
     type ForumChannel,
-    ComponentType, type GuildTextBasedChannel,
+    ComponentType, type GuildTextBasedChannel, DefaultWebSocketManagerOptions,
 } from "discord.js";
 import {Commands} from "@/commands/index.ts";
 import {Author, buildEmbed, Embed, Field, Footer, h, Fragment, deployCommands} from "@/helpers/index.tsx";
@@ -47,6 +47,8 @@ const client = new Client({
         GatewayIntentBits.MessageContent,
     ]
 });
+
+DefaultWebSocketManagerOptions.identifyProperties.browser = 'Discord iOS';
 
 const commands = new Commands();
 const eventsManager = new Events();
