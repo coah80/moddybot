@@ -50,14 +50,14 @@ export default {
 
             if (!member) {
                 await interaction.editReply({
-                    content: `❌ Could not find user ${user.tag} in this server.`
+                    content: `Could not find user ${user.tag} in this server.`
                 });
                 return;
             }
 
             if (!interaction.guild!.members.me?.permissions.has(PermissionFlagsBits.BanMembers)) {
                 await interaction.editReply({
-                    content: "❌ I don't have permission to ban members in this server."
+                    content: "I don't have permission to ban members in this server."
                 });
                 return;
             }
@@ -65,7 +65,7 @@ export default {
             const executorMember = await interaction.guild!.members.fetch(interaction.user.id);
             if (executorMember.roles.highest.comparePositionTo(member.roles.highest) <= 0) {
                 await interaction.editReply({
-                    content: "❌ You cannot softban someone with a higher or equal role."
+                    content: "You cannot softban someone with a higher or equal role."
                 });
                 return;
             }
@@ -73,7 +73,7 @@ export default {
             const botMember = interaction.guild!.members.me;
             if (botMember!.roles.highest.comparePositionTo(member.roles.highest) <= 0) {
                 await interaction.editReply({
-                    content: "❌ My highest role is not high enough to ban this user."
+                    content: "My highest role is not high enough to ban this user."
                 });
                 return;
             }
