@@ -13,8 +13,7 @@ import AdmZip from 'adm-zip';
 import * as yaml from 'js-yaml';
 import {Buffer} from 'node:buffer';
 import {buildEmbed, Embed, Field, Footer, h, Fragment} from "@/helpers";
-import { Parser } from '@thednp/domparser';
-import * as cheerio from'cheerio';
+import { JSDOM } from 'jsdom';
 
 const PROFILE_DATA_PREFIX = "#r2modman";
 
@@ -78,15 +77,6 @@ export default {
             customId: 'select_mod',
             async execute(client: Client, interaction: StringSelectMenuInteraction): Promise<void> {
                 const select = interaction.values[0]!.split('-')
-                const sourcePage = await fetch(`https://thunderstore.io/c/repo/p/${select[0]}/${select[1]}/source`)
-                const text = await sourcePage.text();
-                const $ = cheerio.load(text);
-
-                const preContent = $('pre').text();
-
-                const attachment = new AttachmentBuilder(Buffer.from(preContent), {
-                    name: `${select[1]}-source.cs`
-                });
 
                 const modal = new ModalBuilder()
                     .setCustomId(`search_source_${select[0]}_${select[1]}`)
@@ -105,15 +95,14 @@ export default {
         searchSource: {
             customId: 'search_source',
             async execute(client: Client, interaction: ModalSubmitInteraction): Promise<void> {
-                const [, repo, modName] = interaction.customId.split('_');
+                const [, _, repo, modName] = interaction.customId.split('_');
                 const searchQuery = interaction.fields.getTextInputValue('search_query');
-
-                console.log(searchQuery);
 
                 const sourcePage = await fetch(`https://thunderstore.io/c/repo/p/${repo}/${modName}/source`)
                 const text = await sourcePage.text();
-                const $ = cheerio.load(text);
-                const preContent = $('pre').text();
+                const blob = Array.from(text.match(/https:\/\/gcdn\.thunderstore\.io\/live\/blob-storage\/sha256\/.*(?=)\.blob/))[0]
+                const pre = await fetch(blob)
+                const preContent = await pre.text();
 
                 const searchInSource = (content: string, query: string, context = 2) => {
                     const lines = content.split('\n');
