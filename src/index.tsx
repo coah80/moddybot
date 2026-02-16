@@ -24,7 +24,12 @@ class ComponentCollector {
     }
 
     getHandler(customId: string) {
-        return this.handlers.get(customId);
+        const fallback = this.handlers.entries().find(([string, comp], a) => {
+            if (comp.customId.startsWith(customId.split('_').splice(0, 2).join('_'))) {
+                return comp
+            }
+        });
+        return fallback?.[1] ?? this.handlers.get(customId);
     }
 
     clear() {
@@ -143,6 +148,14 @@ client.on("interactionCreate", async (interaction: Interaction) => {
             const handler = componentCollector.getHandler(interaction.customId);
             if (handler) {
                 await handler.execute(client, interaction, interaction.message);
+            }
+            return;
+        }
+
+        if (interaction.isModalSubmit()) {
+            const handler = componentCollector.getHandler(interaction.customId);
+            if (handler) {
+                await handler.execute(client, interaction, null);
             }
             return;
         }

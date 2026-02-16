@@ -14,8 +14,10 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@thednp/domparser": "^0.1.7",
     "@vitalets/google-translate-api": "^9.2.1",
     "adm-zip": "^0.5.16",
+    "cheerio": "^1.2.0",
     "discord.js": "^14.25.1",
     "js-yaml": "^4.1.1",
     "node-color-log": "^13.0.3",
