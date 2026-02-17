@@ -11,8 +11,8 @@ import {
 import AdmZip from 'adm-zip';
 // @ts-ignore
 import * as yaml from 'js-yaml';
-import {Buffer} from 'node:buffer';
-import {buildEmbed, Embed, Field, Footer, h, Fragment} from "@/helpers";
+import { Buffer } from 'node:buffer';
+import { buildEmbed, Embed, Field, Footer, h, Fragment } from "@/helpers";
 import { JSDOM } from 'jsdom';
 
 const PROFILE_DATA_PREFIX = "#r2modman";
@@ -50,7 +50,7 @@ async function decodeAndExtractProfile(profileData: string): Promise<AdmZip> {
     return new AdmZip(decoded);
 }
 
-const proxState = new Proxy({mods: []}, {
+const proxState = new Proxy({ mods: [] }, {
     get(target, prop, receiver) {
         return Reflect.get(target, prop, receiver);
     },
@@ -70,7 +70,7 @@ export default {
             .setRequired(true)
         ),
 
-    permissionCheck: () => ({result: true}),
+    permissionCheck: () => ({ result: true }),
 
     components: {
         selectMod: {
@@ -210,7 +210,7 @@ export default {
 
             const TextFile = new AttachmentBuilder(
                 Buffer.from(textContent, 'utf-8'),
-                {name: 'mods.txt'}
+                { name: 'mods.txt' }
             );
 
             const b64 = data.substring(PROFILE_DATA_PREFIX.length).trim();
@@ -218,7 +218,7 @@ export default {
 
             const ZipFile = new AttachmentBuilder(
                 zipBuffer,
-                {name: `${profileData.profileName.replace(/\s+/g, '_')}.r2z`}
+                { name: `${profileData.profileName.replace(/\s+/g, '_')}.r2z` }
             );
 
             const components = new StringSelectMenuBuilder()
@@ -230,9 +230,9 @@ export default {
                 embeds: [
                     buildEmbed(
                         <Embed color={0x5865F2} title={`Profile ${profileData.profileName}`}>
-                            <Field inline={true} name={"Total Mods"} value={profileData.mods.length.toString()}/>
-                            <Field inline={true} name={"Enabled Mods"} value={enabledMods.length.toString()}/>
-                            <Footer text={`Profile Code: ${profileCode}`}/>
+                            <Field inline={true} name={"Total Mods"} value={profileData.mods.length.toString()} />
+                            <Field inline={true} name={"Enabled Mods"} value={enabledMods.length.toString()} />
+                            <Footer text={`Profile Code: ${profileCode}`} />
                         </Embed>
                     )
                 ],
@@ -249,4 +249,15 @@ export default {
             });
         }
     }
+}
+
+function splitArrayIntoChunks(array: any[], chunkSize: number) {
+    return array.reduce((result, item, index) => {
+        const chunkIndex = Math.floor(index / chunkSize);
+        if (!result[chunkIndex]) {
+            result[chunkIndex] = [];
+        }
+        result[chunkIndex].push(item);
+        return result;
+    }, []);
 }
