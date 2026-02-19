@@ -80,7 +80,7 @@ export default {
 
             await interaction.guild!.members.ban(user, {
                 deleteMessageSeconds: deleteMessageDays * 86400,
-                reason: `[SOFTBAN] ${reason} - Executed by ${interaction.user.username}`
+                reason: `[SOFTBAN] ${reason} - Executed by <@${interaction.user.id}>`
             });
 
             await interaction.guild!.bans.remove(user, `[SOFTBAN] Auto-unban by bot`);
@@ -92,7 +92,7 @@ export default {
                     color={0x00FF00}
                 >
                     <Field name="User" value={`${user.tag} (${user.id})`} inline={true} />
-                    <Field name="Moderator" value={`${interaction.user.tag}`} inline={true} />
+                    <Field name="Moderator" value={`<@${interaction.user.id}>`} inline={true} />
                     <Field name="Reason" value={reason} inline={false} />
                     <Field name="Messages Deleted" value={`Last ${deleteMessageDays} day${deleteMessageDays !== 1 ? 's' : ''}`} inline={true} />
                     <Field name="Timestamp" value={new Date().toISOString()} inline={true} />
