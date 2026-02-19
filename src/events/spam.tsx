@@ -177,7 +177,7 @@ export default {
                             />
                             <Field
                                 name={"If this was NOT you"}
-                                value={"Your account may be compromised. Please:\n• Reset your password immediately\n• Enable Two-Factor Authentication (2FA)\n• Review and remove any suspicious authorized apps at [discord.com/settings/authorized-apps](https://discord.com/settings/authorized-apps)\n• Check for any unfamiliar activity"}
+                                value={"Your account may be compromised. Please:\n• Reset your password immediately\n• Enable Two-Factor Authentication (2FA)\n• Review and remove any suspicious authorized apps at [discord.com/settings/authorized-apps](https://discord.com/settings/authorized-apps)\n• Check for any unfamiliar activity\n• Check Devices tab and remove any unknown devices."}
                             />
                             <Field
                                 name={"Evidence"}
