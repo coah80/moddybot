@@ -18,7 +18,7 @@ export default {
         )
 
         if (createdTimestamp < oneWeekMs) {
-            const alertChannel = member.guild.channels.cache.get(getGuildConfig(member.guild.id).logChannel ?? process.env.ALERT_CHANNEL_ID) as TextChannel;
+            const alertChannel = member.guild.channels.cache.get(getGuildConfig(member.guild.id).log_channel ?? process.env.ALERT_CHANNEL_ID) as TextChannel;
             if (alertChannel) {
                 await alertChannel.send({
                     embeds: [embed],

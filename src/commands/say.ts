@@ -22,13 +22,6 @@ export default {
         const say = interaction.options.getString("say");
         if (!say || !guild) return;
 
-        const rest = new REST().setToken(process.env.TOKEN);
-        await rest.post(Routes.channelMessages(interaction.channel.id), {
-            body: {
-                content: say,
-                flags: 0,
-                tts: false
-            }
-        });
+        await interaction.followUp({content: 'hi'})
     }
 }

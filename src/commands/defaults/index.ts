@@ -12,7 +12,12 @@ export async function check(client: Client, interaction: ChatInputCommandInterac
         return { result: false, message: 'Configuration error: no minimum role configured.' };
     }
 
-    const requiredRole = await guild!.roles.fetch(minRoleId as Snowflake);
+    let requiredRole;
+    try {
+        requiredRole = await guild!.roles.fetch(minRoleId as Snowflake);
+    } catch {
+        return { result: false, message: 'Configuration error: failed to fetch required role.' };
+    }
 
     if (!requiredRole) {
         return { result: false, message: 'Configuration error: required role not found.' };

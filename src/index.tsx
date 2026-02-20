@@ -9,7 +9,7 @@ import {
     type Snowflake,
     type ThreadChannel,
     type ForumChannel,
-    ComponentType, type GuildTextBasedChannel, DefaultWebSocketManagerOptions, ActivityType, Routes, REST,
+    ComponentType, type GuildTextBasedChannel, DefaultWebSocketManagerOptions, ActivityType, Routes, REST, codeBlock,
 } from "discord.js";
 import {Commands} from "@/commands/index.ts";
 import {Author, buildEmbed, Embed, Field, Footer, h, Fragment, deployCommands} from "@/helpers/index.tsx";
@@ -135,7 +135,7 @@ client.on("threadCreate", async (thread: ThreadChannel, newlyCreated: boolean) =
 });
 
 client.on("interactionCreate", async (interaction: Interaction) => {
-    const reportChannel = client.channels.cache.get(getGuildConfig(interaction.guildId).logChannel ?? '1468680174844248282')
+    const reportChannel = client.channels.cache.get(getGuildConfig(interaction.guildId).log_channel ?? '1468680174844248282')
     try {
         if (interaction.isAutocomplete()) {
             const command = commands.getCommand(interaction.commandName);
@@ -181,7 +181,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     } catch (error) {
         LogAPI.err("err", error)
         reportChannel != undefined && (reportChannel as GuildTextBasedChannel).send({
-            content: `\`\`\`js \n${error}\`\`\``,
+            content: codeBlock('js', error),
         })
     }
 });

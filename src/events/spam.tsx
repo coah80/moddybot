@@ -124,7 +124,7 @@ export default {
         const foundCryptoScams = hasCrypto.filter(x => x && x.found);
 
         try {
-            const alertChannel = message.member.guild.channels.cache.get(getGuildConfig(message.member.guild.id).logChannel ?? process.env.ALERT_CHANNEL_ID) as TextChannel;
+            const alertChannel = message.member.guild.channels.cache.get(getGuildConfig(message.member.guild.id).log_channel ?? process.env.ALERT_CHANNEL_ID) as TextChannel;
             if (alertChannel && hasBadLink) {
                 await message.delete();
                 await alertChannel.send({
