@@ -3,7 +3,7 @@
 
 import {AttachmentBuilder, type Message, type Snowflake, type TextChannel} from "discord.js";
 import {buildEmbed, Field, Fragment, h, Embed, Author} from "@/helpers/index.tsx";
-import {getConfig} from "@/utils/config.ts";
+import {getConfig, getGuildConfig} from "@/utils/config.ts";
 import type {Event} from "@/types/index.ts";
 import {LogAPI} from "@/utils/logger.ts";
 import {createWorker} from "tesseract.js";
@@ -70,7 +70,7 @@ export function detectFileType(bytes: Buffer): string {
 export default {
     name: "messageCreate",
     async execute(message: Message) {
-        const badLinks: string[] = getConfig().links;
+        const badLinks: string[] = getGuildConfig(message.guildId).links || [];
         if (!message.guild || !badLinks || message.author.id == process.env.CLIENT_ID) return;
 
         const foundUrls = message.content.match(urlRegex) || [];
@@ -124,7 +124,7 @@ export default {
         const foundCryptoScams = hasCrypto.filter(x => x && x.found);
 
         try {
-            const alertChannel = message.guild.channels.cache.get(process.env.ALERT_CHANNEL_ID) as TextChannel;
+            const alertChannel = message.member.guild.channels.cache.get(getGuildConfig(message.member.guild.id).logChannel ?? process.env.ALERT_CHANNEL_ID) as TextChannel;
             if (alertChannel && hasBadLink) {
                 await message.delete();
                 await alertChannel.send({
@@ -163,7 +163,7 @@ export default {
                 await message.author.send({
                     embeds: [buildEmbed(
                         <Embed
-                            title={"Security Alert from REPO Modding Discord"}
+                            title={`Security Alert from ${message.guild.name}`}
                             description={"Your account sent a message containing suspicious crypto-related content that was automatically removed."}
                             color={0xFFA500}
                         >

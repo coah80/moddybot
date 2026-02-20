@@ -1,5 +1,6 @@
 import type {Client, GuildMember, Interaction, TextChannel} from "discord.js";
 import {Author, Embed, h} from "@/helpers";
+import {getGuildConfig} from "@/utils/config.ts";
 
 export default {
     name: "guildMemberAdd",
@@ -17,7 +18,7 @@ export default {
         )
 
         if (createdTimestamp < oneWeekMs) {
-            const alertChannel = member.guild.channels.cache.get(process.env.ALERT_CHANNEL_ID) as TextChannel;
+            const alertChannel = member.guild.channels.cache.get(getGuildConfig(member.guild.id).logChannel ?? process.env.ALERT_CHANNEL_ID) as TextChannel;
             if (alertChannel) {
                 await alertChannel.send({
                     embeds: [embed],

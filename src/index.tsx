@@ -15,6 +15,7 @@ import {Commands} from "@/commands/index.ts";
 import {Author, buildEmbed, Embed, Field, Footer, h, Fragment, deployCommands} from "@/helpers/index.tsx";
 import Events from "@/events/index.ts";
 import {LogAPI} from "@/utils/logger.ts";
+import {getGuildConfig} from "@/utils/config.ts";
 
 class ComponentCollector {
     private handlers = new Map<string, ComponentHandler>();
@@ -103,7 +104,7 @@ client.on('clientReady', async () => {
 });
 
 client.on("threadCreate", async (thread: ThreadChannel, newlyCreated: boolean) => {
-    if (thread.parent?.id == process.env.CREATE_THREAD_ID) {
+    if (thread.parent?.id == process.env.CREATE_THREAD_ID && thread.guildId == process.env.GUILD_ID) {
         const member = await thread.guild.members.fetch(thread.ownerId);
         const hasRole = member.roles.cache.has(process.env.VERIFIED_MODDER_ROLE_ID);
         const forumChannel = await client.channels.fetch(process.env.THREAD_CREATION_ALERT_ID as Snowflake) as ForumChannel;
@@ -134,7 +135,7 @@ client.on("threadCreate", async (thread: ThreadChannel, newlyCreated: boolean) =
 });
 
 client.on("interactionCreate", async (interaction: Interaction) => {
-    const reportChannel = client.channels.cache.get('1468680174844248282')
+    const reportChannel = client.channels.cache.get(getGuildConfig(interaction.guildId).logChannel ?? '1468680174844248282')
     try {
         if (interaction.isAutocomplete()) {
             const command = commands.getCommand(interaction.commandName);
