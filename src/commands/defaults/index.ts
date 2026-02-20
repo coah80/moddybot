@@ -1,9 +1,14 @@
 import type { ChatInputCommandInteraction, Client, GuildMember, Snowflake } from "discord.js";
+import { PermissionFlagsBits } from "discord.js";
 import { getGuildConfig } from "@/utils/config.ts";
 
 export async function check(client: Client, interaction: ChatInputCommandInteraction) {
     const guild = interaction.guild;
     const member = interaction.member as GuildMember;
+
+    if (member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+        return { result: true };
+    }
 
     const guildConfig = getGuildConfig(guild!.id);
     const minRoleId = guildConfig.mod_role ?? process.env.MINIMUM_ROLE_REQUIRED as Snowflake;

@@ -7,6 +7,7 @@ import {
     type TextChannel,
 } from "discord.js";
 import { getGuildConfig, setGuildConfig } from "@/utils/config.ts";
+import {check} from "@/commands/defaults";
 
 interface SettingOption {
     id: string;
@@ -56,7 +57,7 @@ export default {
             .setRequired(false)
         ),
 
-    permissionCheck: () => ({ result: true }),
+    permissionCheck: () => check,
 
     async autocomplete(client: Client, interaction: AutocompleteInteraction) {
         const focused = interaction.options.getFocused(true).value.toLowerCase();
