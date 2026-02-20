@@ -19,6 +19,7 @@ const SETTINGS: SettingOption[] = [
      //{ id: "mod_channel", label: "Mod Channel", description: "Channel for mod-related announcements", type: "channel" },
     { id: "log_channel", label: "Log Channel", description: "Channel for bot logs", type: "channel" },
     { id: "mod_role", label: "Mod Role", description: "Role required to use mod commands", type: "role" },
+    { id: "should_dm", label: "Should dm", description: "Should dm", type: "boolean" },
     //{ id: "admin_role", label: "Admin Role", description: "Role required to use admin commands", type: "role" },
     //{ id: "prefix", label: "Prefix", description: "Command prefix for legacy commands", type: "string" },
     //{ id: "welcome_channel", label: "Welcome Channel", description: "Channel to send welcome messages", type: "channel" },
@@ -113,6 +114,16 @@ export default {
                 }
                 resolvedValue = value;
                 displayValue = `\`${value}\``;
+                break;
+            }
+            case "boolean": {
+                const value = interaction.options.getString("value");
+                if (!value || !["true", "false"].includes(value.toLowerCase())) {
+                    await interaction.reply({ content: "❌ Please provide `true` or `false` for this setting.", ephemeral: true });
+                    return;
+                }
+                resolvedValue = value.toLowerCase();
+                displayValue = `\`${resolvedValue}\``;
                 break;
             }
         }

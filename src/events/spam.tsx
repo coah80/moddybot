@@ -160,7 +160,7 @@ export default {
                     files: orgFiles
                 })
                 await message.delete();
-                await message.author.send({
+                getGuildConfig(message.guildId).should_dm === "true" && await message.author.send({
                     embeds: [buildEmbed(
                         <Embed
                             title={`Security Alert from ${message.guild.name}`}
