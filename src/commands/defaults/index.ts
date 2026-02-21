@@ -7,7 +7,7 @@ export async function check(client: Client, interaction: ChatInputCommandInterac
     const member = interaction.member as GuildMember;
 
     if (member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-        return { result: true };
+        return { result: true, message: "passed" };
     }
 
     const guildConfig = getGuildConfig(guild!.id);
@@ -34,5 +34,5 @@ export async function check(client: Client, interaction: ChatInputCommandInterac
         return { result: false, message: "The Maze isn't meant for you." };
     }
 
-    return { result: true };
+    return { result: true, message: "passed" };
 }

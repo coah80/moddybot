@@ -13,7 +13,11 @@ interface StatusConfig {
 interface GuildConfig {
   prefix?: string;
   allowedRoles?: string[];
-  logChannel?: string;
+  log_channel?: string;
+  mod_role?: string;
+  should_dm?: "true" | "false";
+  mods_bypass_checks?: "true" | "false";
+  links?: string[];
 }
 
 interface Config {

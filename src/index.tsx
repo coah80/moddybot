@@ -179,10 +179,22 @@ client.on("interactionCreate", async (interaction: Interaction) => {
             await command.execute(client, interaction);
         }
     } catch (error) {
-        LogAPI.err("err", error)
-        reportChannel != undefined && (reportChannel as GuildTextBasedChannel).send({
-            content: codeBlock('js', error),
-        })
+        LogAPI.err("err", error);
+        const errorMessage = error instanceof Error
+            ? (error.stack ?? error.message)
+            : typeof error === 'string'
+                ? error
+                : JSON.stringify(error);
+
+        if (!errorMessage) return;
+
+        try {
+            reportChannel != undefined && (reportChannel as GuildTextBasedChannel).send({
+                content: codeBlock('js', errorMessage),
+            });
+        } catch (sendError) {
+            LogAPI.err("Failed to send error to report channel", sendError);
+        }
     }
 });
 
