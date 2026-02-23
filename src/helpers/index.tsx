@@ -113,6 +113,16 @@ export async function deployCommands(manager: Commands): Promise<void> {
     } catch (error) {
         LogAPI.err(error);
     }
+
+    try {
+        await rest.put(
+            Routes.applicationCommands(process.env.CLIENT_ID),
+            { body: commandsData },
+        );
+        LogAPI.log('Refreshed global commands.');
+    } catch (error) {
+        LogAPI.err(error);
+    }
 }
 
 const EXPERIMENT = `https://thunderstore.io/api/experimental/`
