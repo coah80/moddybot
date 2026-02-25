@@ -4,9 +4,9 @@
 
 ---
 
-## disclaimer
+# disclaimer
 
-# you can take anything from this repo and use it in your bot, just give some creds!
+## you can take anything from this repo and use it in your bot, just give some creds!
 
 ## features
 
