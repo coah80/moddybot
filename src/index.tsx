@@ -198,4 +198,8 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     }
 });
 
+process.on('exit', () => {
+    LogAPI.log('Exiting');
+})
+
 await client.login(process.env.TOKEN);
