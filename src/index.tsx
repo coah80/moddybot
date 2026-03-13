@@ -190,7 +190,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
 
         try {
             reportChannel != undefined && (reportChannel as GuildTextBasedChannel).send({
-                content: codeBlock('js', errorMessage),
+                content:  codeBlock('js', errorMessage) + `\n\n<@!${interaction.user.id}> executed this command`,
             });
         } catch (sendError) {
             LogAPI.err("Failed to send error to report channel", sendError);
@@ -203,3 +203,5 @@ process.on('exit', () => {
 })
 
 await client.login(process.env.TOKEN);
+
+// one sec
