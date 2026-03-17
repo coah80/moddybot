@@ -19,8 +19,8 @@ const PAGES: Page[] = [
     // Global
     { id: 'overview', label: 'Overview', path: '/overview.html', category: 'global' },
     { id: 'develop', label: 'Develop', path: '/develop.html', category: 'global' },
-    { id: 'harmonyx', label: 'HarmonyX', path: '/harmonyx.html', category: 'global'},
-    { id: 'unity', label: 'Unity', path: '/unity.html', category: 'global'},
+    { id: 'harmonyx', label: 'HarmonyX', path: '/harmonyx.html', category: 'global' },
+    { id: 'unity', label: 'Unity', path: '/unity.html', category: 'global' },
 
     // API
     { id: 'api_get_started', label: 'API Get Started', path: '/apis/repolib/api/start.html', category: 'api' },
