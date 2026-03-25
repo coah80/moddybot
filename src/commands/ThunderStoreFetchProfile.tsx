@@ -204,6 +204,10 @@ export default {
 
             const JSONFile = new AttachmentBuilder(Buffer.from(JSON.stringify(jsonData, null, 2)), {name: 'mods.json'})*/
 
+            console.log(enabledMods.length, profileData.mods.map(x => x.enabled).length)
+
+            const whyWasThisBeingChanged = enabledMods.length
+
             const textContent = enabledMods.map(mod =>
                 `${mod.name}, ${mod.version.major}.${mod.version.minor}.${mod.version.patch}`
             ).join('\n');
@@ -231,7 +235,7 @@ export default {
                     buildEmbed(
                         <Embed color={0x5865F2} title={`Profile ${profileData.profileName}`}>
                             <Field inline={true} name={"Total Mods"} value={profileData.mods.length.toString()} />
-                            <Field inline={true} name={"Enabled Mods"} value={enabledMods.length.toString()} />
+                            <Field inline={true} name={"Enabled Mods"} value={String(whyWasThisBeingChanged)} />
                             <Footer text={`Profile Code: ${profileCode}`} />
                         </Embed>
                     )
