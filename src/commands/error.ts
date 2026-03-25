@@ -13,6 +13,6 @@ export default {
     permissionCheck: check,
 
     async execute(client: Client, interaction: ChatInputCommandInteraction) {
-        throw new Error("Method not implemented.");
+        throw new Error("QUIT RUNNING THIS DAMN COMMAND!!!!.");
     }
 }
