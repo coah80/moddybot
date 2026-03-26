@@ -18,6 +18,8 @@ export default {
                             iconURL={member.user.displayAvatarURL()}/>
                     <Field inline={false} name={"📌 Read rules!"}
                            value={"Reading rules is very important. So do it https://canary.discord.com/channels/1344557689979670578/1344560754937958432"}/>
+                    <Field inline={false} name={"💡 Need Mod Support?"}
+                           value={"Please check the FAQ first: https://canary.discord.com/channels/1344557689979670578/1363921936119238921 before asking for help in https://canary.discord.com/channels/1344557689979670578/1347085657864015872"}/>
                     <Field inline={false} name={"🔗 Looking for sick mods?"}
                            value={"Go check out [ThunderStore](https://thunderstore.io/c/repo/) or look at https://canary.discord.com/channels/1344557689979670578/1344699091959156787"}/>
                     <Field inline={false} name={"🍻 Becoming a Developer?"}
