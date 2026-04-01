@@ -4,7 +4,7 @@ import {getGuildConfig, setGuildConfig} from "@/utils/config.ts";
 const GUILD_ID = "1344557689979670578";
 const ALERT_CHANNEL_ID = "1344557689979670582";
 
-let leftCount = getGuildConfig(GUILD_ID).left_count ?? 82;
+let leftCount = getGuildConfig(GUILD_ID).left_count ?? 83;
 
 export default {
     name: "guildMemberRemove",
