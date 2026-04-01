@@ -13,11 +13,12 @@ export default {
     permissionCheck: check,
 
     async execute(client: Client, interaction: ChatInputCommandInteraction) {
-        if (interaction.user.id == "704757796599496714") {
-            return await interaction.reply({
-                content: `you really THOUGHT huh`,
-            })
-        }
+        // poor atomic
+        // if (interaction.user.id == "704757796599496714") {
+        //     return await interaction.reply({
+        //         content: `you really THOUGHT huh`,
+        //     })
+        // }
         throw new Error("Why must you do this to me.")
     }
 }
