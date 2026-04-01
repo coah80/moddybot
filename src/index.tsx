@@ -82,7 +82,7 @@ client.on('clientReady', async () => {
     client.user.setPresence({
         activities: [{
             name: 'REPO Modding VR',
-            state: 'Playing REPO Modding VR',
+            state: 'Playing REPO Modding VR >:)',
         }],
         status: 'online'
     });
