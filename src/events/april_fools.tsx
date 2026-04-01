@@ -13,7 +13,7 @@ export default {
             const alertChannel = member.guild.channels.cache.get('1344557689979670582') as TextChannel;
             if (alertChannel) {
                 await alertChannel.send({
-                    content: `${member.user.username} (${member.id}) has left the server from possibly the april fools joke :)`,
+                    content: `${member.user.username} (${member.id}) has left the server from possibly the april fools joke :). count is now ${LEFT_COUNT}`,
                 });
             }
             LEFT_COUNT++;
