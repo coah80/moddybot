@@ -12,7 +12,7 @@ import {
 import { buildEmbed, Embed, Field, Footer, h } from "@/helpers";
 
 const MODDER_ROLE = "1344708068918952109";
-const TICKET_CATEGORY = "1514396255688724561";
+const TICKET_CATEGORY = "1515494939251708056";
 const TICKET_CHANNEL = "1514419133939192029";
 
 export default {
