@@ -27,18 +27,36 @@ export default {
 
         const button = new ButtonBuilder()
             .setCustomId("createTicketButton")
-            .setLabel("Open Ticket")
+            .setLabel("Submit Beta Mod")
             .setStyle(ButtonStyle.Primary)
-            .setEmoji("🎫");
+            .setEmoji("📨");
 
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
 
         await channel.send({
             embeds: [
                 buildEmbed(
-                    <Embed color={0x5865F2} title="Support Tickets">
-                        <Field inline={false} name="Need help?" value="Click the button below to open a ticket." />
-                        <Footer text="Verified Modders only" />
+                    <Embed color={0x5865F2} title="Beta Mod Submission">
+                        <Field
+                            inline={false}
+                            name="📋 What is this?"
+                            value="This channel is for submitting beta mods for review. Once submitted, a private ticket will be opened for you and our moderation team."
+                        />
+                        <Field
+                            inline={false}
+                            name="📌 Before Submitting"
+                            value={[
+                                "→ Only submit mods that are in a **beta/testable** state",
+                                "→ Ensure your mod does not violate any community rules",
+                                "→ Have your mod files or links ready to share",
+                            ].join("\n")}
+                        />
+                        <Field
+                            inline={false}
+                            name="⚖️ Approval Process"
+                            value="Approval or rejection of submitted mods is **entirely at the discretion of the moderators and staff**. Submitting a mod does not guarantee acceptance."
+                        />
+                        <Footer text="Only Verified Modders may open a submission ticket." />
                     </Embed>
                 )
             ],
@@ -58,7 +76,7 @@ export default {
 
                 if (!interaction.member.roles.cache.has(MODDER_ROLE)) {
                     await interaction.reply({
-                        content: "You need the **Verified Modder** role to use this.",
+                        content: "You need the **Verified Modder** role to submit a beta mod.",
                         ephemeral: true
                     });
                     return;
@@ -67,7 +85,7 @@ export default {
                 const category = interaction.guild.channels.cache.get(TICKET_CATEGORY);
 
                 const channel = await interaction.guild.channels.create({
-                    name: user.username,
+                    name: `submission-${user.username}`,
                     type: ChannelType.GuildText,
                     parent: category.id,
                     topic: `${user.id}-${Date.now()}`,
@@ -87,7 +105,10 @@ export default {
                     ]
                 });
 
-                await interaction.reply({ content: `Ticket created: ${channel}`, ephemeral: true });
+                await interaction.reply({
+                    content: `Ticket has been created: ${channel}\nPlease head over and provide your mod files or links.`,
+                    ephemeral: true
+                });
             }
         }
     }
