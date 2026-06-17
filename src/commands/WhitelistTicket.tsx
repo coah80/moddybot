@@ -170,7 +170,6 @@ export default {
                 await member.roles.add(APPROVED_ROLE);
 
                 await interaction.update({
-                    embeds: interaction.message.embeds,
                     components: [
                         new ActionRowBuilder<ButtonBuilder>().addComponents(
                             new ButtonBuilder()
@@ -197,7 +196,6 @@ export default {
                 const member = await interaction.guild.members.fetch(userId);
 
                 await interaction.update({
-                    embeds: interaction.message.embeds,
                     components: [
                         new ActionRowBuilder<ButtonBuilder>().addComponents(
                             new ButtonBuilder()
@@ -210,7 +208,7 @@ export default {
                 });
 
                 try {
-                    await member.send(`our beta mod submission has been **rejected**. Please reach out to staff if you have any questions.`);
+                    await member.send(`Your beta mod submission has been **rejected**. Please reach out to staff if you have any questions.`);
                 } catch {}
             }
         }
