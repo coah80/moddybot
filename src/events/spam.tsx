@@ -130,11 +130,8 @@ export default {
                 const { data } = await worker.recognize(url);
                 const lower = data.text.toLowerCase();
                 const found = CRYPTO_KEYWORDS.some(kw => lower.includes(kw));
-                const keywords = lower.split(" ").map((word) => {
-                    if (CRYPTO_KEYWORDS.includes(word.toLowerCase())) {
-                        return word
-                    }
-                });
+                const words = lower.split(/\s+/).map(w => w.replace(/[^\p{L}\p{N}]/gu, ""));
+                const keywords = words.filter(word => CRYPTO_KEYWORDS.includes(word));
                 return { url, found, keywords };
             })
         );
