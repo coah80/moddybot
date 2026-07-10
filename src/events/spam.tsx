@@ -130,14 +130,19 @@ export default {
                 const { data } = await worker.recognize(url);
                 const lower = data.text.toLowerCase();
                 const found = CRYPTO_KEYWORDS.some(kw => lower.includes(kw));
-                return { url, found };
+                const keywords = lower.split(" ").map((word) => {
+                    if (CRYPTO_KEYWORDS.includes(word.toLowerCase())) {
+                        return word
+                    }
+                });
+                return { url, found, keywords };
             })
         );
 
         await worker.terminate();
 
         const foundScams = cryptoResults
-            .filter((r): r is PromiseFulfilledResult<{ url: string; found: boolean }> =>
+            .filter((r): r is PromiseFulfilledResult<{ url: string; found: boolean, keywords: string }> =>
                 r.status === "fulfilled" && r.value.found
             )
             .map(r => r.value);
@@ -173,6 +178,7 @@ export default {
                 <Field name="User" value={`<@${message.author.id}>`} inline={true} />
                 <Field name="Channel" value={`<#${message.channel.id}>`} inline={true} />
                 <Field name="Suspicious URLs" value={foundScams.map(x => x.url).join("\n")} />
+                <Field name="Suspicious Words" value={foundScams.map(x => x.keywords.join(", ")).join("\n")} />
             </Embed>
         );
 
