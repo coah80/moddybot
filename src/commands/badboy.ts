@@ -21,7 +21,9 @@ export default {
         const target = interaction.options.getUser('user', true);
         const guildId = interaction.guildId!;
 
-        const badBoys: string[] = getGuildConfig(guildId, "badboys") ?? [];
+        const guildConfig = getGuildConfig(guildId);
+        const badBoys = guildConfig.badboys ?? [];
+
         if (!badBoys.includes(target.id)) {
             setGuildConfig(guildId, {badboys: [...badBoys, target.id]});
         }

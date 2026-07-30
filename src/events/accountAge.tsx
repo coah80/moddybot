@@ -11,7 +11,7 @@ export default {
         if (!member.guild) return;
 
         if (member.guild.id == process.env.GUILD_ID) {
-            const badBoys: string[] = getGuildConfig(member.guild.id, "badboys") ?? [];
+            const badBoys = getGuildConfig(member.guild.id).badboys ?? [];
             if (badBoys.includes(member.id)) {
                 await member.roles.add(BADBOY_ROLE_ID);
             }
