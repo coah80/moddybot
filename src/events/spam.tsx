@@ -15,7 +15,10 @@ const urlRegex = /https?:\/\/\S+/gi;
 const CRYPTO_KEYWORDS = [
     "crypto", "elonmusk", "bitcoin", "raydium",
     "ethereum", "nft", "mrbeast", "kaicenat",
-    "withdrawal", "bonus",
+    "withdrawal", "bonus", "mellacasino", "casino",
+    // Add new Russian Crypto/Casino giveaway scam words
+    "казино", "бонус", "регистрация",
+    "баланс", "рублей", "меллстрой",
 ];
 
 export function detectFileType(bytes: Buffer): string {
